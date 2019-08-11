@@ -3,6 +3,8 @@ class PostsController < ApplicationController
     @posts = Post.all
     @post = Post.new
     @all_ranks = Post.find(Like.group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
+    now = Time.current
+    @monthly_ranks = Post.find(Like.where(created_at: (now.ago(30.days))..(Time.now)).group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
   end
 
   def show

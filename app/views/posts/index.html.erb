@@ -1,0 +1,62 @@
+<h1>いいねサンプル</h1>
+<% if user_signed_in? %>
+  <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
+  <%= link_to "マイページへ", user_path(current_user.id) %>
+  <%= link_to "ユーザー一覧へ", users_path %>
+  <h2>投稿する</h2>
+  <%= form_for @post do |f| %>
+    <%= f.text_field :content %>
+    <%= f.submit %>
+  <% end %>
+  <hr>
+  <div class="table-container">
+    <table class="table table-striped">
+      <thead class="bg-danger text-white">
+        <h2>投稿一覧</h2>
+          <tr>
+            <th>メールアドレス</th>
+            <th>投稿内容</th>
+            <th>いいね数</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @posts.each do |post| %>
+          <tr>
+            <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+            <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+            <td>(<%= post.liked_users.count %>)</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+  <hr>
+  <div class="table-container">
+    <table class="table table-striped">
+      <thead class="bg-danger text-white">
+        <h2>いいね数ランキング表</h2>
+          <tr>
+            <th>順位</th>
+            <th>メールアドレス</th>
+            <th>投稿内容</th>
+            <th>いいね数</th>
+          </tr>
+      </thead>
+      <tbody>
+        <% @all_ranks.each.with_index(1) do |post, i| %>
+          <tr>
+            <td>第<%= i %>位</td>
+            <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+            <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+            <td>(<%= post.liked_users.count %>)</td>
+          </tr>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
+
+
+<% else %>
+  <%= link_to "ユーザー登録", new_user_registration_path %>
+  <%= link_to "ログイン", new_user_session_path %>
+<% end %>

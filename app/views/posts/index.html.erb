@@ -1,3 +1,4 @@
+<!-- タイトル -->
 <h1>いいねサンプル</h1>
 <% if user_signed_in? %>
   <%= link_to "ログアウト", destroy_user_session_path, :method => :delete %>
@@ -9,76 +10,124 @@
     <%= f.submit %>
   <% end %>
   <hr>
-  <div class="table-container">
-    <table class="table table-striped">
-      <thead class="bg-danger text-white">
-        <h2>投稿一覧</h2>
-          <tr>
-            <th>メールアドレス</th>
-            <th>投稿内容</th>
-            <th>いいね数</th>
-          </tr>
-      </thead>
-      <tbody>
-        <% @posts.each do |post| %>
-          <tr>
-            <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-            <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
-            <td>(<%= post.liked_users.count %>)</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <hr>
-  <div class="table-container">
-    <table class="table table-striped">
-      <thead class="bg-danger text-white">
-        <h2>いいね数ランキング表</h2>
-          <tr>
-            <th>順位</th>
-            <th>メールアドレス</th>
-            <th>投稿内容</th>
-            <th>いいね数</th>
-          </tr>
-      </thead>
-      <tbody>
-        <% @all_ranks.each.with_index(1) do |post, i| %>
-          <tr>
-            <td>第<%= i %>位</td>
-            <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-            <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
-            <td>(<%= post.liked_users.count %>)</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
-  <hr>
-  <div class="table-container">
-    <table class="table table-striped">
-      <thead class="bg-danger text-white">
-        <h2>月間いいね数ランキング表</h2>
-          <tr>
-            <th>順位</th>
-            <th>メールアドレス</th>
-            <th>投稿内容</th>
-            <th>いいね数</th>
-          </tr>
-      </thead>
-      <tbody>
-        <% @monthly_ranks.each.with_index(1) do |post, i| %>
-          <tr>
-            <td>第<%= i %>位</td>
-            <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-            <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
-            <td>(<%= post.liked_users.count %>)</td>
-          </tr>
-        <% end %>
-      </tbody>
-    </table>
-  </div>
 
+
+<!-- タブボタンの設定 -->
+  <ul class="nav nav-tabs">
+    <li class="nav-item">
+      <a href="#tab1" class="nav-link" data-toggle="tab">総合いいね数ランキング表</a>
+    </li>
+    <li class="nav-item">
+      <a href="#tab2" class="nav-link" data-toggle="tab">月間いいね数ランキング表</a>
+    </li>
+    <li class="nav-item">
+      <a href="#tab3" class="nav-link" data-toggle="tab">日間いいね数ランキング表</a>
+    </li>
+    <li class="nav-item">
+      <a href="#tab4" class="nav-link" data-toggle="tab"> 1分間いいね数ランキング表</a>
+    </li>
+  </ul>
+
+
+<!-- コンテンツの設定 -->
+  <div class="tab-content">
+    <div id="tab1" class="tab-pane active">
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead class="bg-danger text-white">
+            <tr>
+              <th>順位</th>
+              <th>メールアドレス</th>
+              <th>投稿内容</th>
+              <th>いいね数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @all_ranks.each.with_index(1) do |post, i| %>
+              <tr>
+                <td>第<%= i %>位</td>
+                <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td>(<%= post.liked_users.count %>)</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="tab2" class="tab-pane">
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead class="bg-danger text-white">
+            <tr>
+              <th>順位</th>
+              <th>メールアドレス</th>
+              <th>投稿内容</th>
+              <th>いいね数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @monthly_ranks.each.with_index(1) do |post, i| %>
+              <tr>
+                <td>第<%= i %>位</td>
+                <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td>(<%= post.liked_users.count %>)</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="tab3" class="tab-pane">
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead class="bg-danger text-white">
+            <tr>
+              <th>順位</th>
+              <th>メールアドレス</th>
+              <th>投稿内容</th>
+              <th>いいね数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @daily_ranks.each.with_index(1) do |post, i| %>
+              <tr>
+                <td>第<%= i %>位</td>
+                <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td>(<%= post.liked_users.count %>)</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+    <div id="tab4" class="tab-pane">
+      <div class="table-container">
+        <table class="table table-striped">
+          <thead class="bg-danger text-white">
+            <tr>
+              <th>順位</th>
+              <th>メールアドレス</th>
+              <th>投稿内容</th>
+              <th>いいね数</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% @minitly_ranks.each.with_index(1) do |post, i| %>
+              <tr>
+                <td>第<%= i %>位</td>
+                <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td>(<%= post.liked_users.count %>)</td>
+              </tr>
+            <% end %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
 
 <% else %>
   <%= link_to "ユーザー登録", new_user_registration_path %>

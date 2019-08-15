@@ -26,7 +26,7 @@
             <% @posts.each do |post| %>
               <tr>
                 <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
                 <td>(<%= post.liked_users.count %>)</td>
               </tr>
             <% end %>
@@ -73,7 +73,7 @@
               <tr>
                 <td>第<%= i %>位</td>
                 <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
                 <td>(<%= post.liked_users.count %>)</td>
               </tr>
             <% end %>
@@ -97,7 +97,7 @@
               <tr>
                 <td>第<%= i %>位</td>
                 <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
                 <td>(<%= post.liked_users.count %>)</td>
               </tr>
             <% end %>
@@ -121,7 +121,7 @@
               <tr>
                 <td>第<%= i %>位</td>
                 <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
                 <td>(<%= post.liked_users.count %>)</td>
               </tr>
             <% end %>
@@ -145,7 +145,7 @@
               <tr>
                 <td>第<%= i %>位</td>
                 <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
-                <td><a href="/posts/<%= post.id %>"><%= post.content %></a></td>
+                <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
                 <td>(<%= post.liked_users.count %>)</td>
               </tr>
             <% end %>

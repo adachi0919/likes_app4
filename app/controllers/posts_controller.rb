@@ -14,6 +14,11 @@ class PostsController < ApplicationController
     @like = Like.new
   end
 
+  def hashtags
+    tag = Tag.find_by(name: params[:name])
+    @posts = tag.posts
+  end
+
   def create
     @post = Post.new(post_params)
     @post.user_id = current_user.id

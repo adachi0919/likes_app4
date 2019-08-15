@@ -2,13 +2,18 @@
 <h3><%= @user.email %></h3>
 <h2>投稿内容</h2>
 <% @user.posts.each do |post| %>
-  <a href="/posts/<%= post.id %>"><%= post.content %></a>
+  <a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a>
   <hr>
 <% end %>
 <h3>いいねしている投稿</h3>
-<% @user.liked_posts.each do |post| %>
-  <%= post.user.email %>
-  <%= post.content %>
-<% end %>
+  <% @user.liked_posts.each do |post| %>
+    <tr>
+      <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
+      <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
+    </tr>
+    <hr>
+  <% end %>
+
+
 <%= link_to "ユーザー一覧へ", users_path %>
 <%= link_to "ホームへ戻る", posts_path %>

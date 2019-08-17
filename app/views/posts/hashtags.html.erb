@@ -15,6 +15,8 @@
             <th>メールアドレス</th>
             <th>投稿内容</th>
             <th>いいね数</th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody>
@@ -23,6 +25,8 @@
               <td><a href="/users/<%= post.user.id %>"><%= post.user.email %></a></td>
               <td><a href="/posts/<%= post.id %>"><%= render_with_hashtags(post.content) %></a></td>
               <td>(<%= post.liked_users.count %>)</td>
+              <td><%= link_to "削除", post_path(post), method: :delete, data: { confirm: "削除しますか？" } %></td>
+              <td><%= link_to "編集", edit_post_path(post), method: :get %></td>
             </tr>
           <% end %>
         </tbody>

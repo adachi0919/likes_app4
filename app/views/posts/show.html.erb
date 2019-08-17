@@ -2,6 +2,9 @@
 <h3><a href="/users/<%= @post.user.id %>"><%= @post.user.email %></a></h3>
 <h3><a href="/posts/<%= @post.id %>"><%= render_with_hashtags(@post.content) %></a></h3>
 <h3>いいね件数: <%= @post.likes.count %></h3>
+<h3><%= link_to "削除", post_path(@post), method: :delete, data: { confirm: "削除しますか？" } %></h3>
+<h3><%= link_to "編集", edit_post_path(@post), method: :get %></h3>
+
 <% if current_user.already_liked?(@post) %>
   <%= button_to 'いいねを取り消す', post_like_path(@post), method: :delete %>
 <% else %>

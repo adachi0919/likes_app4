@@ -7,6 +7,8 @@ class PostsController < ApplicationController
     @monthly_ranks = Post.find(Like.where(created_at: (now.ago(30.days))..(Time.now)).group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
     @daily_ranks = Post.find(Like.where(created_at: (now.ago(24.hours))..(Time.now)).group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
     @minitly_ranks = Post.find(Like.where(created_at: (now.ago(60.seconds))..(Time.now)).group(:post_id).order('count(post_id) desc').limit(3).pluck(:post_id))
+    @q = Post.ransack(params[:q])
+    @posts = @q.result(distinct: true)
   end
 
   def show

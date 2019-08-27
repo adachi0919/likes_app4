@@ -11,6 +11,14 @@
   <% end %>
   <hr>
 
+  <h2>検索する</h2>
+  <%= search_form_for @q do |f| %>
+    <%= f.label :content, "キーワード" %>
+    <%= f.search_field :content_cont %>
+
+    <%= f.submit "検索"  %>
+  <% end %>
+
   <h2>投稿一覧</h2>
     <div id="tab1" class="tab-pane active">
       <div class="table-container">
